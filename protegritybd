@@ -1,0 +1,37 @@
+create database protegrity;
+
+use protegrity;
+
+
+
+
+create table roles(
+role_id integer primary key AUTO_INCREMENT,
+role_name varchar(100),
+description varchar(300),
+roles varchar(300)
+
+);
+
+
+
+create table user(
+user_id integer primary key AUTO_INCREMENT,
+first_name varchar(30),
+last_name varchar(30),
+user_name varchar(30),
+description varchar(300)
+);
+
+
+create table user_roles
+(
+user_role_id integer primary key AUTO_INCREMENT,
+role_id integer,
+user_id integer,
+FOREIGN KEY (role_id) REFERENCES roles(role_id),
+FOREIGN KEY (user_id) REFERENCES user(user_id)
+);
+
+
+insert into user_roles (user_role_id,role_id,user_id) values (1,1,1);
