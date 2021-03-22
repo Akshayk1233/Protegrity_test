@@ -1,0 +1,5 @@
+mysql:
+    host: localhost
+    user: YOur server user name
+    passwd: your mysql server password
+    db: protegrity

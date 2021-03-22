@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<title>Protegrity: User Mangement</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+<!-- Font Awesome CSS -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.min.css') }}">
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/paper-dashboard.css') }}">
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/sidebar.css') }}">
+
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  
+  
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <style>
+
+  
+  </style>
+  
+  
+
+  
+  
+  
+<body>
+
+<div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none;background-color:black;color:white" id="mySidebar">
+  <button class="w3-bar-item w3-button w3-large"
+  onclick="w3_close()">Close &times;</button></br>
+  <a  href="{{ url_for('usermanagement') }}" class="w3-bar-item w3-button">User</a></br>
+  <a  href="{{ url_for('adduser') }}" class="w3-bar-item w3-button">Add User</a>
+</div>
+
+<div id="main">
+
+<div class="w3-teal1" style="background-color:black;color:white;font-size:200%">
+<p> <span class="pull-left" >
+  <button id="openNav"  onclick="w3_open()" button="btn default" style="background-color:black;color:white;height: 40px;border-color:black;">&#9776;</button></span>  Protegrity</p>
+  
+</div>
+
+
+
+<div class="content">
+
+
+<div class="container" >
+<h4>User Management</h4>
+<hr>
+
+  <div class="card">
+  <form action="/updateuser" method="post" >
+    {% for item in data1 %}
+  <div class="card-header " ><a  href="{{ url_for('usermanagement') }}">  <i class="fa fa-angle-left"></i> &nbsp Back</a><b>&nbsp Admin</b> 
+   
+        <div class="btn-group btn-group-sm float-right" role="group">
+          <button type="submit" class="btn btn-sm btn-primary" id="btSubmit" value="submit" disabled> Save
+   </button>&nbsp;&nbsp;&nbsp;
+<a href="/?flag=delete&user_role_id=+{{item[3]}}+" style="color:#000; text-decoration:none;font-size:20px;padding-top:5px;" > <i class="fa fa-trash"></i></a>
+   
+ 
+	
+</div>
+        
+        </div>
+<br>
+ <div class="card-body">       
+<div class="card">
+<div class="card-header" style="background-color:#f0f0f0;padding-bottom:10px;"><i style="font-size:20px" class="fa"> <b>&#xf107; </b></i>  General Info
+
+</div>
+<div class="card-body">
+
+
+ 
+
+
+
+
+    <div class="form-group row">
+        <label for="inputFirstname" class="col-sm-2 col-form-label">First Name</label>
+        <div class="col-sm-5">
+        <p>{{item[0]}}</p>
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <label for="inputLastname" class="col-sm-2 col-form-label">Last Name *:</label>
+        <div class="col-sm-5">
+        <p>{{item[1]}}</p>
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <label for="inputUsername" class="col-sm-2 col-form-label">User Name *:</label>
+        <div class="col-sm-5">
+        <p>{{item[2]}}</p>
+    </div>
+  </div>  
+  
+    <div class="form-group row">
+        <label for="inputDescription" class="col-sm-2 col-form-label">Description</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" id="inputDescription" placeholder="Description" name="description">
+        </div>
+    </div>
+  
+     <div class="form-group row" hidden>
+        <label for="inputFirstname" class="col-sm-2 col-form-label">user role ID</label>
+        <div class="col-sm-5"><p>{{item[3]}}</p>
+         <input type="text" class="form-control"  placeholder="id" name="user_roles_id" value="{{item[3]}}" readonly>
+        </div>
+    </div>
+
+ <div class="form-group row" hidden>
+        <label for="inputFirstname" class="col-sm-2 col-form-label">user ID</label>
+        <div class="col-sm-5"><p>{{item[4]}}</p>
+         <input type="text" class="form-control"  placeholder="id" name="user_id" value="{{item[4]}}" readonly>
+        </div>
+    </div>
+    
+    
+
+{% endfor %}
+
+
+
+
+
+
+
+</div>
+</div>
+
+<div class="card">
+<div class="card-header" style="background-color:#f0f0f0;padding-bottom:10px;"><i style="font-size:20px" class="fa"> <b>&#xf107; </b></i>  Roles
+
+</div>
+<div class="card-body">
+<div id="faq-text">
+  <label class="h2-faq">select role(s) from the list bellow</label>&nbsp
+  <p class="faq-ptag pull-center" id="count"> </p> &nbsp
+  <p class="faq-ptag pull-center" >Selected </p>
+</div>
+
+    <div class="htable">     
+     <table class="table" id="roles">
+  <thead bgcolor="#E0E0E0">
+    <tr>
+      <th scope="col">Select</th>
+      <th scope="col">Role Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Role</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+   {% for item in roles_data %}
+<tr>
+<td><input type="checkbox" name="role" class="role" value="{{item[0]}}"  onclick = "return Validate()"> </td>
+<td >{{item[1]}}</td>
+          <td >{{item[2]}}</td>
+          <td >{{item[3]}}</td>
+    
+    
+      
+      
+      
+    
+</tr>
+{% endfor %}
+  </tbody>
+</table>     
+          
+  </div>        
+          
+          </div>
+       </div>	
+</form>
+    </div>
+     
+  </div>         
+   
+  </div>
+
+
+
+
+
+  
+    <script src="{{url_for('static',filename='js/sidebar.js')}}"></script>
+  
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
